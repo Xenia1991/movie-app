@@ -3,4 +3,4 @@ function multy(b) {
 }
 multy(2);
 const roar1 = 'roar ';
-console.log(roar1);
+console.log(roar1)
