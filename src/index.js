@@ -1,6 +1,8 @@
-function multy(b) {
-  return b * 2;
-}
-multy(2);
-const roar1 = 'roar12 6 ';
-console.log(roar1);
+import { createRoot } from 'react-dom/client';
+
+import App from './components/app/app';
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(<App />);
