@@ -1,0 +1,12 @@
+.app {
+    margin: 0 auto;
+    width: 600px;
+    height: auto;
+    background-color: #FFFFFF;
+    box-shadow: 5px 0px 85px 0 rgb(223, 221, 221),
+                -5px 0px 85px 0 rgb(182, 181, 181);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 0.1px solid rgb(253, 253, 253);
+}
