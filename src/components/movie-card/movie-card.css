@@ -1,0 +1,20 @@
+.ant-card {
+    width: 450px;
+    box-sizing: border-box;
+}
+
+.ant-card-body {
+    width: 450px;
+}
+
+.ant-card-grid.poster {
+    width: 150px;
+    height: 280px;
+    box-sizing: border-box;
+}
+
+.ant-card-grid.description {
+    width: 300px;
+    height: 280px;
+    box-sizing: border-box;
+}
