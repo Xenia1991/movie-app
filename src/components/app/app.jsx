@@ -1,18 +1,13 @@
 import React from 'react';
 
-import MovieCard from '../movie-card';
+import MovieList from '../movie-list';
 import './app.css';
 
 class App extends React.Component {
   render() {
     return (
       <section className="app">
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
+        <MovieList />
       </section>
     );
   }

@@ -1,7 +1,8 @@
-.app {
+/* .app {
   margin: 0 auto;
-  width: 1140px;
+  max-width: 1010px;
   height: auto;
+  box-sizing: border-box;
   background-color: #ffffff;
   box-shadow:
     5px 0px 85px 0 rgb(223, 221, 221),
@@ -11,5 +12,5 @@
   row-gap: 20px;
   justify-content: space-around;
   border: 0.1px solid rgb(253, 253, 253);
-  padding: 20px 0px;
-}
+  padding: 20px 30px;
+} */

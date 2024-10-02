@@ -28,19 +28,17 @@
     height: 100%;
     background-size: cover;
 }
-/* 
-.ant-card-body {
-    width: 450px;
-}
 
-.ant-card-grid.poster {
-    width: 150px;
-    height: 280px;
+.movie-card__second-space {
+    padding: 10px;
     box-sizing: border-box;
 }
 
-.ant-card-grid.description {
-    width: 300px;
-    height: 280px;
+.movie-card__genre {
+    padding: 10px 0px;
+}
+
+.movie-card__description {
     box-sizing: border-box;
-} */
+    padding: 10px 5px;
+}
