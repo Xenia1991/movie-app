@@ -11,6 +11,8 @@ class App extends React.Component {
         <MovieCard />
         <MovieCard />
         <MovieCard />
+        <MovieCard />
+        <MovieCard />
       </section>
     );
   }
