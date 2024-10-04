@@ -10,40 +10,45 @@ const { Title, Text } = Typography;
 class MovieCard extends React.Component {
   posterBase = 'https://image.tmdb.org/t/p/w500';
 
-  getKey = () => Math.floor(Math.random() * 1000);
-
-  render() {
+  getDateFormat = () => {
     const { item } = this.props;
     const numberedDatesArr = item.release_date
       .split('-')
       .map((date) => Number(date))
       .join(' ');
     const formatDate = format(new Date(numberedDatesArr), 'MMMM dd, uuuu');
+    return formatDate;
+  };
 
-    const genres = item.genre_ids.map((genre) => <Text code>{genre}</Text>);
+  getGenresNames = () => {
+    const { item, genres } = this.props;
+    const genreNames = item.genre_ids.map((id) => genres[id]);
+    return genreNames;
+  };
+
+  render() {
+    const { item } = this.props;
+    const formatDate = this.getDateFormat();
+    const genresCollection = this.getGenresNames().map((genre) => <Text code>{genre}</Text>);
+
     return (
-      <Card hoverable className="movie-card" key={this.getKey()}>
-        <Space direction="horizontal" className="movie-card__first-space" key={this.getKey()}>
+      <Card hoverable className="movie-card">
+        <Space direction="horizontal" className="movie-card__first-space">
           <img
             className="movie-card__poster"
             alt="example"
             src={item.poster_path === null ? defaultPoster : `${this.posterBase}${item.poster_path}`}
-            key={this.getKey()}
           />
-          <Space direction="vertical" className="movie-card__second-space" key={this.getKey()}>
-            <section className="movie-card__main-info" key={this.getKey()}>
-              <Title level={4} className="movie-card__name" key={this.getKey()}>
+          <Space direction="vertical" className="movie-card__second-space">
+            <section className="movie-card__main-info">
+              <Title level={4} className="movie-card__name">
                 {item.title}
               </Title>
-              <Text type="secondary" className="movie-card__date" key={this.getKey()}>
+              <Text type="secondary" className="movie-card__date">
                 {formatDate}
               </Text>
-              <p className="movie-card__genre" key={this.getKey()}>
-                {genres}
-              </p>
-              <Text className="movie-card__description" key={this.getKey()}>
-                {item.overview}
-              </Text>
+              <p className="movie-card__genre">{genresCollection}</p>
+              <Text className="movie-card__description">{item.overview}</Text>
             </section>
           </Space>
         </Space>

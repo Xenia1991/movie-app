@@ -5,7 +5,7 @@ import MovieApiServices from '../../services/movie-api-services';
 import './app.css';
 
 class App extends React.Component {
-  query = 'Addams';
+  query = 'SpiderMan';
 
   movieApiServices = new MovieApiServices();
 
@@ -33,8 +33,12 @@ class App extends React.Component {
   getMoviesGenres = () => {
     this.movieApiServices.getGenres().then((genre) => {
       const { genres } = genre;
+      const transformedGenres = {};
+      genres.forEach((item) => {
+        transformedGenres[item.id] = item.name;
+      });
       this.setState({
-        genresList: genres,
+        genresList: transformedGenres,
       });
     });
   };
