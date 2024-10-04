@@ -24,6 +24,15 @@ class MovieApiServices {
     const result = await response.json();
     return result;
   }
+
+  async getGenres() {
+    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', this.options);
+    if (!response.ok) {
+      throw new Error(`Could not fetch, reseived ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  }
 }
 
 export default MovieApiServices;

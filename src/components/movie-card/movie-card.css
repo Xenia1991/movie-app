@@ -39,6 +39,9 @@
 }
 
 .movie-card__description {
+    display: block;
     box-sizing: border-box;
     padding: 10px 5px;
+    height: 120px;
+    overflow: hidden;
 }

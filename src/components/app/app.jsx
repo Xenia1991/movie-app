@@ -5,19 +5,23 @@ import MovieApiServices from '../../services/movie-api-services';
 import './app.css';
 
 class App extends React.Component {
+  query = 'Addams';
+
   movieApiServices = new MovieApiServices();
 
   state = {
     movieList: [],
+    genresList: [],
   };
 
   constructor() {
     super();
     this.getMovieInfo();
+    this.getMoviesGenres();
   }
 
   getMovieInfo = () => {
-    const url = '?query=Twilight&include_adult=false&language=en-US&page=1';
+    const url = `?query=${this.query}&include_adult=false&language=en-US&page=1`;
     this.movieApiServices.getMovie(url).then((movies) => {
       const { results } = movies;
       this.setState({
@@ -26,11 +30,20 @@ class App extends React.Component {
     });
   };
 
+  getMoviesGenres = () => {
+    this.movieApiServices.getGenres().then((genre) => {
+      const { genres } = genre;
+      this.setState({
+        genresList: genres,
+      });
+    });
+  };
+
   render() {
-    const { movieList } = this.state;
+    const { movieList, genresList } = this.state;
     return (
       <section className="app">
-        <MovieList movieList={movieList} />
+        <MovieList movieList={movieList} genresList={genresList} />
       </section>
     );
   }
