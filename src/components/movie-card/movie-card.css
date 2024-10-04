@@ -26,7 +26,7 @@
 .movie-card__poster {
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: contain;
 }
 
 .movie-card__second-space {
