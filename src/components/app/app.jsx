@@ -5,7 +5,7 @@ import MovieApiServices from '../../services/movie-api-services';
 import './app.css';
 
 class App extends React.Component {
-  query = 'SpiderMan';
+  query = 'Hulk';
 
   movieApiServices = new MovieApiServices();
 

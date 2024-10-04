@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Space, Typography } from 'antd';
+import { Card, Space, Typography, Badge } from 'antd';
 import { format } from 'date-fns';
 
 import './movie-card.css';
@@ -9,6 +9,8 @@ const { Title, Text } = Typography;
 
 class MovieCard extends React.Component {
   posterBase = 'https://image.tmdb.org/t/p/w500';
+
+  getKey = () => Math.floor(Math.random() * 1000);
 
   getDateFormat = () => {
     const { item } = this.props;
@@ -29,7 +31,9 @@ class MovieCard extends React.Component {
   render() {
     const { item } = this.props;
     const formatDate = this.getDateFormat();
-    const genresCollection = this.getGenresNames().map((genre) => <Text code>{genre}</Text>);
+    const genresCollection = this.getGenresNames().map((genre) => (
+      <Badge key={this.getKey()} count={genre} color="cyan" />
+    ));
 
     return (
       <Card hoverable className="movie-card">
