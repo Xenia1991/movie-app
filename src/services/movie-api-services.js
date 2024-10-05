@@ -1,18 +1,17 @@
 class MovieApiServices {
   movieApiBase = 'https://api.themoviedb.org/3/search/movie';
 
-  x = 'eyJhbGciOiJIUzI1NiJ9';
-
-  y1 = 'eyJhdWQiOiJiZTkwMmJkNTBmMWVhNWI0M2VkYWJiYjdlZjIxOTZhNiIsIm5iZiI6MTcyNzcxMj';
-
-  y2 = 'Y3NS4zMTk0MjUsInN1YiI6IjY2ZmFjYmIwM2EwZjVhMDhjOGYxOTdlOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ';
-
-  z = 'LUo2KwMUQQOj_h10pe7QItT4sBYHTx51RQFENcsp_ck';
+  token = {
+    x: 'eyJhbGciOiJIUzI1NiJ9',
+    y1: 'eyJhdWQiOiJiZTkwMmJkNTBmMWVhNWI0M2VkYWJiYjdlZjIxOTZhNiIsIm5iZiI6MTcyNzcxMjY3',
+    y2: 'NS4zMTk0MjUsInN1YiI6IjY2ZmFjYmIwM2EwZjVhMDhjOGYxOTdlOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ',
+    z: 'LUo2KwMUQQOj_h10pe7QItT4sBYHTx51RQFENcsp_ck',
+  };
 
   options = {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${this.x}.${this.y1}${this.y2}.${this.z}`,
+      Authorization: `Bearer ${this.token.x}.${this.token.y1}${this.token.y2}.${this.token.z}`,
     },
   };
 
