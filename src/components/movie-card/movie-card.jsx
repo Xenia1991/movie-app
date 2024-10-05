@@ -28,13 +28,23 @@ class MovieCard extends React.Component {
     return genreNames;
   };
 
+  getCuttedDescription = () => {
+    const { item } = this.props;
+    const cuttedOverview = item.overview.split('');
+    if (item.overview.length >= 130) {
+      const newOverview = `${cuttedOverview.slice(0, 130).join('')}...`;
+      return newOverview;
+    }
+    return item.overview;
+  };
+
   render() {
     const { item } = this.props;
     const formatDate = this.getDateFormat();
     const genresCollection = this.getGenresNames().map((genre) => (
       <Badge key={this.getKey()} count={genre} color="cyan" />
     ));
-
+    const overview = this.getCuttedDescription();
     return (
       <Card hoverable className="movie-card">
         <Space direction="horizontal" className="movie-card__first-space">
@@ -45,14 +55,14 @@ class MovieCard extends React.Component {
           />
           <Space direction="vertical" className="movie-card__second-space">
             <section className="movie-card__main-info">
-              <Title level={4} className="movie-card__name">
+              <Title level={5} className="movie-card__name">
                 {item.title}
               </Title>
               <Text type="secondary" className="movie-card__date">
                 {formatDate}
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
-              <Text className="movie-card__description">{item.overview}</Text>
+              <Text className="movie-card__description">{overview}</Text>
             </section>
           </Space>
         </Space>
