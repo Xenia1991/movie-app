@@ -2,16 +2,18 @@ import React from 'react';
 
 import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
+import Loader from '../loader';
 import './app.css';
 
 class App extends React.Component {
-  query = 'River';
+  query = 'Prejudice';
 
   movieApiServices = new MovieApiServices();
 
   state = {
     movieList: [],
     genresList: [],
+    isLoading: true,
   };
 
   constructor() {
@@ -22,11 +24,13 @@ class App extends React.Component {
 
   getMovieInfo = () => {
     const url = `?query=${this.query}&include_adult=false&language=en-US&page=1`;
+
     this.movieApiServices.getMovie(url).then((movies) => {
       const { results } = movies;
-      this.setState({
+      this.setState(() => ({
         movieList: results,
-      });
+        isLoading: false,
+      }));
     });
   };
 
@@ -37,17 +41,20 @@ class App extends React.Component {
       genres.forEach((item) => {
         transformedGenres[item.id] = item.name;
       });
-      this.setState({
+      this.setState(() => ({
         genresList: transformedGenres,
-      });
+      }));
     });
   };
 
   render() {
-    const { movieList, genresList } = this.state;
+    const { movieList, genresList, isLoading } = this.state;
+    const movieCard = !isLoading ? <MovieList movieList={movieList} genresList={genresList} /> : null;
+    const loaderSpin = isLoading ? <Loader /> : null;
     return (
       <section className="app">
-        <MovieList movieList={movieList} genresList={genresList} />
+        {movieCard}
+        {loaderSpin}
       </section>
     );
   }
