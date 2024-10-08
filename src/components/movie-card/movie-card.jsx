@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 class MovieCard extends React.Component {
   posterBase = 'https://image.tmdb.org/t/p/w500';
 
-  getKey = () => Math.floor(Math.random() * 1000);
+  getKey = () => Math.floor(Math.random() * 10000);
 
   getDateFormat = () => {
     const { item } = this.props;

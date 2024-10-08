@@ -3,10 +3,11 @@ import React from 'react';
 import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
 import Loader from '../loader';
+import AlertError from '../alert-error';
 import './app.css';
 
 class App extends React.Component {
-  query = 'Prejudice';
+  query = 'Anna';
 
   movieApiServices = new MovieApiServices();
 
@@ -14,6 +15,7 @@ class App extends React.Component {
     movieList: [],
     genresList: [],
     isLoading: true,
+    isError: false,
   };
 
   constructor() {
@@ -22,39 +24,54 @@ class App extends React.Component {
     this.getMoviesGenres();
   }
 
+  onError = () => {
+    this.setState({
+      isLoading: false,
+      isError: true,
+    });
+  };
+
   getMovieInfo = () => {
     const url = `?query=${this.query}&include_adult=false&language=en-US&page=1`;
 
-    this.movieApiServices.getMovie(url).then((movies) => {
-      const { results } = movies;
-      this.setState(() => ({
-        movieList: results,
-        isLoading: false,
-      }));
-    });
+    this.movieApiServices
+      .getMovie(url)
+      .then((movies) => {
+        const { results } = movies;
+        this.setState(() => ({
+          movieList: results,
+          isLoading: false,
+        }));
+      })
+      .catch(() => this.onError());
   };
 
   getMoviesGenres = () => {
-    this.movieApiServices.getGenres().then((genre) => {
-      const { genres } = genre;
-      const transformedGenres = {};
-      genres.forEach((item) => {
-        transformedGenres[item.id] = item.name;
-      });
-      this.setState(() => ({
-        genresList: transformedGenres,
-      }));
-    });
+    this.movieApiServices
+      .getGenres()
+      .then((genre) => {
+        const { genres } = genre;
+        const transformedGenres = {};
+        genres.forEach((item) => {
+          transformedGenres[item.id] = item.name;
+        });
+        this.setState(() => ({
+          genresList: transformedGenres,
+        }));
+      })
+      .catch(() => this.onError());
   };
 
   render() {
-    const { movieList, genresList, isLoading } = this.state;
-    const movieCard = !isLoading ? <MovieList movieList={movieList} genresList={genresList} /> : null;
+    const { movieList, genresList, isLoading, isError } = this.state;
+    const movieCard = !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} /> : null;
     const loaderSpin = isLoading ? <Loader /> : null;
+    const errorAlert = isError && !isLoading ? <AlertError /> : null;
     return (
       <section className="app">
         {movieCard}
         {loaderSpin}
+        {errorAlert}
       </section>
     );
   }

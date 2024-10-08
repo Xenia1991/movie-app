@@ -1,6 +1,8 @@
 import React from 'react';
 import { Spin } from 'antd';
 
+import './loader.css';
+
 const contentStyle = {
   padding: 50,
   background: 'rgba(0, 0, 0, 0.05)',
