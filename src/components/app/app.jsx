@@ -1,9 +1,11 @@
 import React from 'react';
+import { Online, Offline } from 'react-detect-offline';
 
 import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
 import Loader from '../loader';
 import AlertError from '../alert-error';
+
 import './app.css';
 
 class App extends React.Component {
@@ -69,9 +71,14 @@ class App extends React.Component {
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
     return (
       <section className="app">
-        {movieCard}
-        {loaderSpin}
-        {errorAlert}
+        <Online>
+          {movieCard}
+          {loaderSpin}
+          {errorAlert}
+        </Online>
+        <Offline>
+          <AlertError />
+        </Offline>
       </section>
     );
   }
