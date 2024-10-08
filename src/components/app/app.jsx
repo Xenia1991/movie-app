@@ -69,14 +69,19 @@ class App extends React.Component {
     const movieCard = !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} /> : null;
     const loaderSpin = isLoading ? <Loader /> : null;
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
+    const pollingOptions = {
+      url: 'https://httpbin.org/get',
+      interval: 90000,
+    };
+
     return (
       <section className="app">
-        <Online>
+        <Online polling={pollingOptions}>
           {movieCard}
           {loaderSpin}
           {errorAlert}
         </Online>
-        <Offline>
+        <Offline polling={pollingOptions}>
           <AlertError />
         </Offline>
       </section>
