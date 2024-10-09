@@ -6,7 +6,7 @@ import './movie-list.css';
 
 class MovieList extends React.Component {
   render() {
-    const { movieList, genresList } = this.props;
+    const { movieList, genresList, inputValue } = this.props;
 
     return (
       <List

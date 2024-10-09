@@ -1,6 +1,6 @@
 .app {
   margin: 0 auto;
-  max-width: 1010px;
+  max-width: 980px;
   height: auto;
   box-sizing: border-box;
   background-color: #ffffff;
@@ -13,4 +13,8 @@
   justify-content: space-around;
   border: 0.1px solid rgb(253, 253, 253);
   padding: 20px 30px;
+}
+
+.input-search-section {
+  width: 100%;
 }

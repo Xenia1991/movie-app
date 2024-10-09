@@ -5,17 +5,17 @@ import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
 import Loader from '../loader';
 import AlertError from '../alert-error';
+import InputSearch from '../input-search';
 
 import './app.css';
 
 class App extends React.Component {
-  query = 'Life';
-
   movieApiServices = new MovieApiServices();
 
   state = {
     movieList: [],
     genresList: [],
+    inputValue: 'harry',
     isLoading: true,
     isError: false,
   };
@@ -25,6 +25,14 @@ class App extends React.Component {
     this.getMoviesGenres();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { inputValue } = this.state;
+    if (inputValue !== prevState.inputValue) {
+      this.getMovieInfo();
+      this.getMoviesGenres();
+    }
+  }
+
   onError = () => {
     this.setState({
       isLoading: false,
@@ -32,9 +40,15 @@ class App extends React.Component {
     });
   };
 
-  getMovieInfo = () => {
-    const url = `?query=${this.query}&include_adult=false&language=en-US&page=1`;
+  getInputValue = (e) => {
+    this.setState(() => ({
+      inputValue: e,
+    }));
+  };
 
+  getMovieInfo = () => {
+    const { inputValue } = this.state;
+    const url = `?query=${inputValue}&include_adult=false&language=en-US&page=1`;
     this.movieApiServices
       .getMovie(url)
       .then((movies) => {
@@ -64,24 +78,31 @@ class App extends React.Component {
   };
 
   render() {
-    const { movieList, genresList, isLoading, isError } = this.state;
-    const movieCard = !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} /> : null;
+    const { movieList, genresList, isLoading, isError, inputValue } = this.state;
+    const movieCard =
+      !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} value={inputValue} /> : null;
     const loaderSpin = isLoading ? <Loader /> : null;
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
     const pollingOptions = {
       interval: 90000,
     };
+    console.log(inputValue);
 
     return (
       <section className="app">
-        <Online polling={pollingOptions}>
-          {movieCard}
-          {loaderSpin}
-          {errorAlert}
-        </Online>
-        <Offline polling={pollingOptions}>
-          <AlertError />
-        </Offline>
+        <section className="input-search-section">
+          <InputSearch value={inputValue} onChange={this.getInputValue} />
+        </section>
+        <section className="movie-list-section">
+          <Online polling={pollingOptions}>
+            {movieCard}
+            {loaderSpin}
+            {errorAlert}
+          </Online>
+          <Offline polling={pollingOptions}>
+            <AlertError />
+          </Offline>
+        </section>
       </section>
     );
   }

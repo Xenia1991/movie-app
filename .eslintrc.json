@@ -32,6 +32,7 @@
       "react/state-in-constructor": ["error", "never"],
       "class-methods-use-this":["off"],
       "max-len": ["error", { "code": 120 }],
+      "operator-linebreak": "off",
       "react/prop-types": 0,
       "react/prefer-stateless-function": "off",
       "import/no-unresolved": [2, { "caseSensitive": false }],

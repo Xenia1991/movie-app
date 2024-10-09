@@ -10,8 +10,6 @@ const { Title, Text } = Typography;
 class MovieCard extends React.Component {
   posterBase = 'https://image.tmdb.org/t/p/w500';
 
-  getKey = () => Math.floor(Math.random() * 10000);
-
   getDateFormat = () => {
     const { item } = this.props;
     const numberedDatesArr = item.release_date
@@ -41,9 +39,7 @@ class MovieCard extends React.Component {
   render() {
     const { item } = this.props;
     const formatDate = this.getDateFormat();
-    const genresCollection = this.getGenresNames().map((genre) => (
-      <Badge key={this.getKey()} count={genre} color="cyan" />
-    ));
+    const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
     const overview = this.getCuttedDescription();
     return (
       <Card hoverable className="movie-card">
