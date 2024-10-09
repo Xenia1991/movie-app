@@ -42,7 +42,7 @@ class App extends React.Component {
 
   getInputValue = (e) => {
     this.setState(() => ({
-      inputValue: e,
+      inputValue: e.trim(),
     }));
   };
 
@@ -86,7 +86,6 @@ class App extends React.Component {
     const pollingOptions = {
       interval: 90000,
     };
-    console.log(inputValue);
 
     return (
       <section className="app">
