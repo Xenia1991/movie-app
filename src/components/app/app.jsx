@@ -9,7 +9,7 @@ import AlertError from '../alert-error';
 import './app.css';
 
 class App extends React.Component {
-  query = 'Anna';
+  query = 'Life';
 
   movieApiServices = new MovieApiServices();
 
@@ -20,8 +20,7 @@ class App extends React.Component {
     isError: false,
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.getMovieInfo();
     this.getMoviesGenres();
   }
@@ -70,7 +69,6 @@ class App extends React.Component {
     const loaderSpin = isLoading ? <Loader /> : null;
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
     const pollingOptions = {
-      url: 'https://httpbin.org/get',
       interval: 90000,
     };
 
