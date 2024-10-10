@@ -6,6 +6,7 @@ import MovieApiServices from '../../services/movie-api-services';
 import Loader from '../loader';
 import AlertError from '../alert-error';
 import InputSearch from '../input-search';
+import PaginationList from '../pagination';
 
 import './app.css';
 
@@ -15,9 +16,10 @@ class App extends React.Component {
   state = {
     movieList: [],
     genresList: [],
-    inputValue: 'harry',
+    inputValue: '',
     isLoading: true,
     isError: false,
+    totalMovies: null,
   };
 
   componentDidMount() {
@@ -46,16 +48,17 @@ class App extends React.Component {
     }));
   };
 
-  getMovieInfo = () => {
+  getMovieInfo = (page = 1) => {
     const { inputValue } = this.state;
-    const url = `?query=${inputValue}&include_adult=false&language=en-US&page=1`;
+    const url = `?query=${inputValue}&include_adult=false&language=en-US&page=${page}`;
     this.movieApiServices
       .getMovie(url)
       .then((movies) => {
-        const { results } = movies;
+        const { results, total_results } = movies;
         this.setState(() => ({
           movieList: results,
           isLoading: false,
+          totalMovies: total_results,
         }));
       })
       .catch(() => this.onError());
@@ -78,7 +81,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { movieList, genresList, isLoading, isError, inputValue } = this.state;
+    const { movieList, genresList, isLoading, isError, inputValue, totalMovies } = this.state;
     const movieCard =
       !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} value={inputValue} /> : null;
     const loaderSpin = isLoading ? <Loader /> : null;
@@ -101,6 +104,9 @@ class App extends React.Component {
           <Offline polling={pollingOptions}>
             <AlertError />
           </Offline>
+        </section>
+        <section className="pagination-section">
+          <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
         </section>
       </section>
     );
