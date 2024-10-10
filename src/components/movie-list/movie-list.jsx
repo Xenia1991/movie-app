@@ -8,8 +8,8 @@ import './movie-list.css';
 
 class MovieList extends React.Component {
   render() {
-    const { movieList, genresList } = this.props;
-    const emptyAlert = movieList.length === 0 ? <AlertEmpty /> : null;
+    const { movieList, genresList, isInitial } = this.props;
+    const emptyAlert = isInitial || movieList.length !== 0 ? null : <AlertEmpty />;
     const movies =
       movieList.length !== 0 ? (
         <List
@@ -25,10 +25,10 @@ class MovieList extends React.Component {
         />
       ) : null;
     return (
-      <>
+      <div>
         {movies}
         {emptyAlert}
-      </>
+      </div>
     );
   }
 }

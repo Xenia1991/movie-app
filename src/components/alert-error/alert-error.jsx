@@ -6,11 +6,13 @@ import './alert-error.css';
 class AlertError extends React.Component {
   render() {
     return (
-      <Alert
-        message="Oops! :("
-        description="Something unexpectable happens. Check your internet connection or try again later!"
-        type="warning"
-      />
+      <div className="alert-error">
+        <Alert
+          message="Oops! :("
+          description="Something unexpectable happens. Check your internet connection or try again later!"
+          type="warning"
+        />
+      </div>
     );
   }
 }

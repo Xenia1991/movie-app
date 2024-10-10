@@ -14,9 +14,11 @@ const content = <div style={contentStyle} />;
 class Loader extends React.Component {
   render() {
     return (
-      <Spin tip="Loading" size="large">
-        {content}
-      </Spin>
+      <div>
+        <Spin tip="Loading" size="large">
+          {content}
+        </Spin>
+      </div>
     );
   }
 }

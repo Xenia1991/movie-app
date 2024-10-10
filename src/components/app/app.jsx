@@ -17,19 +17,16 @@ class App extends React.Component {
     movieList: [],
     genresList: [],
     inputValue: '',
-    isLoading: true,
+    isLoading: false,
     isError: false,
     totalMovies: null,
+    isInitialLoad: true,
   };
-
-  componentDidMount() {
-    this.getMovieInfo();
-    this.getMoviesGenres();
-  }
 
   componentDidUpdate(prevProps, prevState) {
     const { inputValue } = this.state;
     if (inputValue !== prevState.inputValue) {
+      this.setState({ isLoading: true });
       this.getMovieInfo();
       this.getMoviesGenres();
     }
@@ -59,6 +56,7 @@ class App extends React.Component {
           movieList: results,
           isLoading: false,
           totalMovies: total_results,
+          isInitialLoad: false,
         }));
       })
       .catch(() => this.onError());
@@ -81,17 +79,22 @@ class App extends React.Component {
   };
 
   render() {
-    const { movieList, genresList, isLoading, isError, inputValue, totalMovies } = this.state;
-    const movieCard =
-      !isLoading && !isError ? <MovieList movieList={movieList} genresList={genresList} value={inputValue} /> : null;
-    const loaderSpin = isLoading ? <Loader /> : null;
-    const errorAlert = isError && !isLoading ? <AlertError /> : null;
     const pollingOptions = {
       interval: 90000,
     };
-
+    const { movieList, genresList, isLoading, isError, inputValue, totalMovies, isInitialLoad } = this.state;
+    const movieCard =
+      !isLoading && !isError ? (
+        <MovieList movieList={movieList} genresList={genresList} value={inputValue} isInitial={isInitialLoad} />
+      ) : null;
+    const loaderSpin = isLoading ? <Loader /> : null;
+    const errorAlert = isError && !isLoading ? <AlertError /> : null;
+    const pages =
+      !isLoading && !isError && totalMovies ? (
+        <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
+      ) : null;
     return (
-      <section className="app">
+      <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="input-search-section">
           <InputSearch value={inputValue} onChange={this.getInputValue} />
         </section>
@@ -101,13 +104,9 @@ class App extends React.Component {
             {loaderSpin}
             {errorAlert}
           </Online>
-          <Offline polling={pollingOptions}>
-            <AlertError />
-          </Offline>
+          <Offline polling={pollingOptions}>{errorAlert}</Offline>
         </section>
-        <section className="pagination-section">
-          <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
-        </section>
+        <section className="pagination-section">{pages}</section>
       </section>
     );
   }
