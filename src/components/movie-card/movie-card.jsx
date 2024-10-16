@@ -37,11 +37,22 @@ class MovieCard extends React.Component {
     return item.overview;
   };
 
+  getCuttedTitle = () => {
+    const { item } = this.props;
+    const cuttedTitle = item.title.split('');
+    if (item.title.length >= 20) {
+      const newTitle = `${cuttedTitle.slice(0, 20).join('')}...`;
+      return newTitle;
+    }
+    return cuttedTitle.join('');
+  };
+
   render() {
     const { item } = this.props;
     const formatDate = this.getDateFormat();
     const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
     const overview = this.getCuttedDescription();
+    const title = this.getCuttedTitle();
     const { vote_average } = item;
     const rateStyles = {
       base: 'movie-card__rate',
@@ -62,7 +73,7 @@ class MovieCard extends React.Component {
             <section className="movie-card__main-info">
               <div className="movie-card__title">
                 <Title level={4} className="movie-card__name">
-                  {item.title}
+                  {title}
                 </Title>
                 <div
                   className={
@@ -83,7 +94,7 @@ class MovieCard extends React.Component {
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
               <Text className="movie-card__description">{overview}</Text>
-              <Rate count={10} allowHalf />
+              <Rate count={10} allowHalf className="movie-card__stars" />
             </section>
           </Space>
         </Space>
