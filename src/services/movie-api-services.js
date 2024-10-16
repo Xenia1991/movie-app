@@ -1,5 +1,5 @@
 class MovieApiServices {
-  movieApiBase = 'https://api.themoviedb.org/3/search/movie';
+  movieApiBase = 'https://api.themoviedb.org/3/';
 
   token = {
     x: 'eyJhbGciOiJIUzI1NiJ9',
@@ -14,6 +14,15 @@ class MovieApiServices {
       Authorization: `Bearer ${this.token.x}.${this.token.y1}${this.token.y2}.${this.token.z}`,
     },
   };
+
+  async createGuestSession(url) {
+    const response = await fetch(`${this.movieApiBase}${url}`, this.options);
+    if (!response.ok) {
+      throw new Error(`Could not fetch, reseived ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  }
 
   async getMovie(url) {
     const response = await fetch(`${this.movieApiBase}${url}`, this.options);

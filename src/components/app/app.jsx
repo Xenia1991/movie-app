@@ -21,7 +21,12 @@ class App extends React.Component {
     isError: false,
     totalMovies: null,
     isInitialLoad: true,
+    guestSessionId: null,
   };
+
+  componentDidMount() {
+    this.getGuestSessionId();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { inputValue } = this.state;
@@ -45,13 +50,25 @@ class App extends React.Component {
     }));
   };
 
+  getGuestSessionId = () => {
+    const url = 'authentication/guest_session/new';
+    this.movieApiServices.createGuestSession(url).then((data) => {
+      console.log(data);
+      const { guest_session_id } = data;
+      this.setState({
+        guestSessionId: guest_session_id,
+      });
+    });
+  };
+
   getMovieInfo = (page = 1) => {
     const { inputValue } = this.state;
-    const url = `?query=${inputValue}&include_adult=false&language=en-US&page=${page}`;
+    const url = `search/movie?query=${inputValue}&include_adult=false&language=en-US&page=${page}`;
     this.movieApiServices
       .getMovie(url)
       .then((movies) => {
         const { results, total_results } = movies;
+        console.log(results);
         this.setState(() => ({
           movieList: results,
           isLoading: false,
@@ -82,7 +99,8 @@ class App extends React.Component {
     const pollingOptions = {
       interval: 90000,
     };
-    const { movieList, genresList, isLoading, isError, inputValue, totalMovies, isInitialLoad } = this.state;
+    const { movieList, genresList, isLoading, isError, inputValue, totalMovies, isInitialLoad, guestSessionId } =
+      this.state;
     const movieCard =
       !isLoading && !isError ? (
         <MovieList movieList={movieList} genresList={genresList} value={inputValue} isInitial={isInitialLoad} />
@@ -93,6 +111,7 @@ class App extends React.Component {
       !isLoading && !isError && totalMovies ? (
         <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
       ) : null;
+    console.log(guestSessionId);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="input-search-section">

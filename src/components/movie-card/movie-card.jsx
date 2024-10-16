@@ -1,5 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
-import { Card, Space, Typography, Badge } from 'antd';
+import { Card, Space, Typography, Badge, Rate } from 'antd';
 import { format } from 'date-fns';
 
 import './movie-card.css';
@@ -41,6 +42,14 @@ class MovieCard extends React.Component {
     const formatDate = this.getDateFormat();
     const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
     const overview = this.getCuttedDescription();
+    const { vote_average } = item;
+    const rateStyles = {
+      base: 'movie-card__rate',
+      lowest: 'movie-card__rate--lowest',
+      low: 'movie-card__rate--low',
+      middle: 'movie-card__rate--middle',
+      high: 'movie-card__rate--high',
+    };
     return (
       <Card hoverable className="movie-card">
         <Space direction="horizontal" className="movie-card__first-space">
@@ -51,14 +60,30 @@ class MovieCard extends React.Component {
           />
           <Space direction="vertical" className="movie-card__second-space">
             <section className="movie-card__main-info">
-              <Title level={5} className="movie-card__name">
-                {item.title}
-              </Title>
+              <div className="movie-card__title">
+                <Title level={4} className="movie-card__name">
+                  {item.title}
+                </Title>
+                <div
+                  className={
+                    vote_average < 3
+                      ? `${rateStyles.base} ${rateStyles.lowest}`
+                      : vote_average >= 3 && vote_average < 5
+                        ? `${rateStyles.base} ${rateStyles.low}`
+                        : vote_average >= 5 && vote_average < 7
+                          ? `${rateStyles.base} ${rateStyles.middle}`
+                          : `${rateStyles.base} ${rateStyles.high}`
+                  }
+                >
+                  {vote_average.toFixed(1)}
+                </div>
+              </div>
               <Text type="secondary" className="movie-card__date">
                 {formatDate}
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
               <Text className="movie-card__description">{overview}</Text>
+              <Rate count={10} allowHalf />
             </section>
           </Space>
         </Space>
