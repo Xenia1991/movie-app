@@ -50,9 +50,10 @@ class MovieCard extends React.Component {
   };
 
   render() {
-    const { item, onRate } = this.props;
+    const { item, onRate, ratedMovies } = this.props;
     const formatDate = this.getDateFormat();
     const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
+    const myRaiting = ratedMovies[item.id];
     const overview = this.getCuttedDescription();
     const title = this.getCuttedTitle();
     const { vote_average, poster_path, id } = item;
@@ -96,7 +97,7 @@ class MovieCard extends React.Component {
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
               <Text className="movie-card__description">{overview}</Text>
-              <Raiting id={id} onRate={onRate} />
+              <Raiting id={id} onRate={onRate} rate={myRaiting !== undefined ? myRaiting : 0} />
             </section>
           </Space>
         </Space>

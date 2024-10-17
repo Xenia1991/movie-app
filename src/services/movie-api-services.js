@@ -1,5 +1,3 @@
-import { method } from 'lodash';
-
 class MovieApiServices {
   movieApiBase = 'https://api.themoviedb.org/3/';
 

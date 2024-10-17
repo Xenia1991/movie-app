@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { Rate } from 'antd';
 
@@ -8,7 +9,8 @@ class Raiting extends React.Component {
   };
 
   render() {
-    return <Rate count={10} allowHalf className="movie-card__stars" onChange={this.handleChange} />;
+    const { rate } = this.props;
+    return <Rate count={10} allowHalf className="movie-card__stars" onChange={this.handleChange} defaultValue={rate} />;
   }
 }
 

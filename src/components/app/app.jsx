@@ -17,6 +17,7 @@ class App extends React.Component {
   state = {
     movieList: [],
     genresList: [],
+    ratedMovies: {},
     inputValue: '',
     isLoading: false,
     isError: false,
@@ -97,19 +98,31 @@ class App extends React.Component {
   rateMovie = (value, id) => {
     const { guestSessionId } = this.state;
     this.movieApiServices.postRate(value, id, guestSessionId);
+    this.setState(({ movieList, ratedMovies }) => {
+      const filteredMovie = movieList.filter((movie) => movie.id === id);
+      const [currentMovie] = filteredMovie;
+      const movie = {
+        ...ratedMovies,
+        [currentMovie.id]: value,
+      };
+      return {
+        ratedMovies: movie,
+      };
+    });
   };
 
   render() {
     const pollingOptions = {
       interval: 90000,
     };
-    const { movieList, genresList, isLoading, isError, inputValue, totalMovies, isInitialLoad, guestSessionId } =
+    const { movieList, genresList, ratedMovies, isLoading, isError, inputValue, totalMovies, isInitialLoad } =
       this.state;
     const movieCard =
       !isLoading && !isError ? (
         <MovieList
           movieList={movieList}
           genresList={genresList}
+          ratedMovies={ratedMovies}
           value={inputValue}
           isInitial={isInitialLoad}
           onRate={this.rateMovie}
@@ -121,6 +134,7 @@ class App extends React.Component {
       !isLoading && !isError && totalMovies ? (
         <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
       ) : null;
+    console.log(this.state);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="tab-section">
