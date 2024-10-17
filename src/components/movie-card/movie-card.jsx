@@ -1,7 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import { Card, Space, Typography, Badge, Rate } from 'antd';
+import { Card, Space, Typography, Badge } from 'antd';
 import { format } from 'date-fns';
+
+import Raiting from '../raiting';
 
 import './movie-card.css';
 import defaultPoster from './no_poster.jpg';
@@ -48,12 +50,12 @@ class MovieCard extends React.Component {
   };
 
   render() {
-    const { item } = this.props;
+    const { item, onRate } = this.props;
     const formatDate = this.getDateFormat();
     const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
     const overview = this.getCuttedDescription();
     const title = this.getCuttedTitle();
-    const { vote_average } = item;
+    const { vote_average, poster_path, id } = item;
     const rateStyles = {
       base: 'movie-card__rate',
       lowest: 'movie-card__rate--lowest',
@@ -67,7 +69,7 @@ class MovieCard extends React.Component {
           <img
             className="movie-card__poster"
             alt="example"
-            src={item.poster_path === null ? defaultPoster : `${this.posterBase}${item.poster_path}`}
+            src={item.poster_path === null ? defaultPoster : `${this.posterBase}${poster_path}`}
           />
           <Space direction="vertical" className="movie-card__second-space">
             <section className="movie-card__main-info">
@@ -94,7 +96,7 @@ class MovieCard extends React.Component {
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
               <Text className="movie-card__description">{overview}</Text>
-              <Rate count={10} allowHalf className="movie-card__stars" />
+              <Raiting id={id} onRate={onRate} />
             </section>
           </Space>
         </Space>

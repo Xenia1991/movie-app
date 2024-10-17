@@ -8,7 +8,7 @@ import './movie-list.css';
 
 class MovieList extends React.Component {
   render() {
-    const { movieList, genresList, isInitial } = this.props;
+    const { movieList, genresList, isInitial, onRate } = this.props;
     const emptyAlert = isInitial || movieList.length !== 0 ? null : <AlertEmpty />;
     const movies =
       movieList.length !== 0 ? (
@@ -19,7 +19,7 @@ class MovieList extends React.Component {
           dataSource={movieList}
           renderItem={(item) => (
             <List.Item>
-              <MovieCard item={item} genres={genresList} />
+              <MovieCard item={item} genres={genresList} onRate={onRate} />
             </List.Item>
           )}
         />

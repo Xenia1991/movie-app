@@ -1,3 +1,5 @@
+import { method } from 'lodash';
+
 class MovieApiServices {
   movieApiBase = 'https://api.themoviedb.org/3/';
 
@@ -7,6 +9,8 @@ class MovieApiServices {
     y2: 'NS4zMTk0MjUsInN1YiI6IjY2ZmFjYmIwM2EwZjVhMDhjOGYxOTdlOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ',
     z: 'LUo2KwMUQQOj_h10pe7QItT4sBYHTx51RQFENcsp_ck',
   };
+
+  key = 'be902bd50f1ea5b43edabbb7ef2196a6';
 
   options = {
     method: 'GET',
@@ -40,6 +44,21 @@ class MovieApiServices {
     }
     const result = await response.json();
     return result;
+  }
+
+  async postRate(rate, movieId, sessionId) {
+    fetch(`/3/movie/${movieId}/rating?guest_session_id=${sessionId}`, {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${this.token.x}.${this.token.y1}${this.token.y2}.${this.token.z}`,
+      },
+      body: `{"value":${rate}}`,
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
   }
 }
 

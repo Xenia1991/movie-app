@@ -68,6 +68,7 @@ class App extends React.Component {
       .getMovie(url)
       .then((movies) => {
         const { results, total_results } = movies;
+        console.log(results);
         this.setState(() => ({
           movieList: results,
           isLoading: false,
@@ -94,6 +95,12 @@ class App extends React.Component {
       .catch(() => this.onError());
   };
 
+  rateMovie = (value, id, sessionId) => {
+    console.log(value, id, sessionId);
+    const { guestSessionId } = this.state;
+    this.movieApiServices.postRate(value, id, guestSessionId).then((res) => console.log(res));
+  };
+
   render() {
     const pollingOptions = {
       interval: 90000,
@@ -102,7 +109,13 @@ class App extends React.Component {
       this.state;
     const movieCard =
       !isLoading && !isError ? (
-        <MovieList movieList={movieList} genresList={genresList} value={inputValue} isInitial={isInitialLoad} />
+        <MovieList
+          movieList={movieList}
+          genresList={genresList}
+          value={inputValue}
+          isInitial={isInitialLoad}
+          onRate={this.rateMovie}
+        />
       ) : null;
     const loaderSpin = isLoading ? <Loader /> : null;
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
