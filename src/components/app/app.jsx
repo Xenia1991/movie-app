@@ -68,7 +68,6 @@ class App extends React.Component {
       .getMovie(url)
       .then((movies) => {
         const { results, total_results } = movies;
-        console.log(results);
         this.setState(() => ({
           movieList: results,
           isLoading: false,
@@ -95,10 +94,9 @@ class App extends React.Component {
       .catch(() => this.onError());
   };
 
-  rateMovie = (value, id, sessionId) => {
-    console.log(value, id, sessionId);
+  rateMovie = (value, id) => {
     const { guestSessionId } = this.state;
-    this.movieApiServices.postRate(value, id, guestSessionId).then((res) => console.log(res));
+    this.movieApiServices.postRate(value, id, guestSessionId);
   };
 
   render() {
@@ -123,7 +121,6 @@ class App extends React.Component {
       !isLoading && !isError && totalMovies ? (
         <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
       ) : null;
-    console.log(guestSessionId);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="tab-section">
