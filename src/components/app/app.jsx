@@ -134,7 +134,7 @@ class App extends React.Component {
       !isLoading && !isError && totalMovies ? (
         <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
       ) : null;
-    console.log(this.state);
+    console.log(ratedMovies);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="tab-section">

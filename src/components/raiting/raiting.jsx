@@ -10,7 +10,7 @@ class Raiting extends React.Component {
 
   render() {
     const { rate } = this.props;
-    return <Rate count={10} allowHalf className="movie-card__stars" onChange={this.handleChange} defaultValue={rate} />;
+    return <Rate count={10} allowHalf className="movie-card__stars" onChange={this.handleChange} value={rate} />;
   }
 }
 

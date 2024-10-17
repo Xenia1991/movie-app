@@ -4,9 +4,14 @@ import { Pagination } from 'antd';
 import './pagination.css';
 
 class PaginationList extends React.Component {
-  render() {
-    const { totalMovies, getPage } = this.props;
+  handleChange = (page) => {
+    const { getPage } = this.props;
+    getPage(page);
+    window.scrollTo(0, 0);
+  };
 
+  render() {
+    const { totalMovies } = this.props;
     return (
       <div className="pagination">
         <Pagination
@@ -15,7 +20,7 @@ class PaginationList extends React.Component {
           pageSize={20}
           total={totalMovies}
           showSizeChanger={false}
-          onChange={getPage}
+          onChange={this.handleChange}
         />
       </div>
     );
