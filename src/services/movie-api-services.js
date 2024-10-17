@@ -34,7 +34,7 @@ class MovieApiServices {
   }
 
   async getGenres() {
-    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', this.options);
+    const response = await fetch(`${this.movieApiBase}genre/movie/list?language=en`, this.options);
     if (!response.ok) {
       throw new Error(`Could not fetch, reseived ${response.status}`);
     }

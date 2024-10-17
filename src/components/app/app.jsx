@@ -5,6 +5,7 @@ import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
 import Loader from '../loader';
 import AlertError from '../alert-error';
+import Tab from '../tab';
 import InputSearch from '../input-search';
 import PaginationList from '../pagination';
 
@@ -53,7 +54,6 @@ class App extends React.Component {
   getGuestSessionId = () => {
     const url = 'authentication/guest_session/new';
     this.movieApiServices.createGuestSession(url).then((data) => {
-      console.log(data);
       const { guest_session_id } = data;
       this.setState({
         guestSessionId: guest_session_id,
@@ -68,7 +68,6 @@ class App extends React.Component {
       .getMovie(url)
       .then((movies) => {
         const { results, total_results } = movies;
-        console.log(results);
         this.setState(() => ({
           movieList: results,
           isLoading: false,
@@ -114,6 +113,9 @@ class App extends React.Component {
     console.log(guestSessionId);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
+        <section className="tab-section">
+          <Tab />
+        </section>
         <section className="input-search-section">
           <InputSearch value={inputValue} onChange={this.getInputValue} />
         </section>
