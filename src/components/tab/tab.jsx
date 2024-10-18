@@ -14,7 +14,13 @@ class Tab extends React.Component {
   ];
 
   onChange = (key) => {
-    console.log(key);
+    const { getRated, getSearch } = this.props;
+    if (key === '1') {
+      getSearch();
+    }
+    if (key === '2') {
+      getRated();
+    }
   };
 
   render() {

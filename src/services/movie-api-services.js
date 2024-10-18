@@ -45,7 +45,7 @@ class MovieApiServices {
   }
 
   async postRate(rate, movieId, sessionId) {
-    fetch(`/3/movie/${movieId}/rating?guest_session_id=${sessionId}`, {
+    fetch(`${this.movieApiBase}movie/${movieId}/rating?guest_session_id=${sessionId}`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -57,6 +57,15 @@ class MovieApiServices {
       .then((response) => response.json())
       .then((response) => console.log(response))
       .catch((err) => console.error(err));
+  }
+
+  async getRatedMovies(url) {
+    const response = await fetch(`${this.movieApiBase}${url}`, this.options);
+    if (!response.ok) {
+      throw new Error(`Could not fetch, reseived ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
   }
 }
 

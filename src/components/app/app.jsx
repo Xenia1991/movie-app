@@ -24,6 +24,7 @@ class App extends React.Component {
     totalMovies: null,
     isInitialLoad: true,
     guestSessionId: null,
+    isSearching: true,
   };
 
   componentDidMount() {
@@ -74,6 +75,7 @@ class App extends React.Component {
           isLoading: false,
           totalMovies: total_results,
           isInitialLoad: false,
+          isSearching: true,
         }));
       })
       .catch(() => this.onError());
@@ -111,12 +113,39 @@ class App extends React.Component {
     });
   };
 
+  getRatedMovieList = (page = 1) => {
+    const { guestSessionId } = this.state;
+    const url = `guest_session/${guestSessionId}/rated/movies?language=en-US&page=${page}&sort_by=created_at.asc`;
+    this.movieApiServices
+      .getRatedMovies(url)
+      .then((movies) => {
+        const { results, total_results } = movies;
+        this.setState(() => ({
+          movieList: results,
+          isLoading: false,
+          totalMovies: total_results,
+          isInitialLoad: false,
+          isSearching: false,
+        }));
+      })
+      .catch(() => this.onError());
+  };
+
   render() {
     const pollingOptions = {
       interval: 90000,
     };
-    const { movieList, genresList, ratedMovies, isLoading, isError, inputValue, totalMovies, isInitialLoad } =
-      this.state;
+    const {
+      movieList,
+      genresList,
+      ratedMovies,
+      isLoading,
+      isError,
+      inputValue,
+      totalMovies,
+      isInitialLoad,
+      isSearching,
+    } = this.state;
     const movieCard =
       !isLoading && !isError ? (
         <MovieList
@@ -130,28 +159,26 @@ class App extends React.Component {
       ) : null;
     const loaderSpin = isLoading ? <Loader /> : null;
     const errorAlert = isError && !isLoading ? <AlertError /> : null;
+    const searching = isSearching ? <InputSearch value={inputValue} onChange={this.getInputValue} /> : null;
     const pages =
       !isLoading && !isError && totalMovies ? (
-        <PaginationList totalMovies={totalMovies} getPage={this.getMovieInfo} />
+        <PaginationList totalMovies={totalMovies} getPage={isSearching ? this.getMovieInfo : this.getRatedMovieList} />
       ) : null;
-    console.log(ratedMovies);
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
         <section className="tab-section">
-          <Tab />
+          <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
         </section>
-        <section className="input-search-section">
-          <InputSearch value={inputValue} onChange={this.getInputValue} />
-        </section>
+        <section className="input-search-section">{searching}</section>
         <section className="movie-list-section">
           <Online polling={pollingOptions}>
             {movieCard}
             {loaderSpin}
             {errorAlert}
+            <section className="pagination-section">{pages}</section>
           </Online>
           <Offline polling={pollingOptions}>{errorAlert}</Offline>
         </section>
-        <section className="pagination-section">{pages}</section>
       </section>
     );
   }
