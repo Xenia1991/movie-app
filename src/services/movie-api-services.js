@@ -55,7 +55,7 @@ class MovieApiServices {
       body: `{"value":${rate}}`,
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => response)
       .catch((err) => console.error(err));
   }
 

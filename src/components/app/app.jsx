@@ -25,6 +25,7 @@ class App extends React.Component {
     isInitialLoad: true,
     guestSessionId: null,
     isSearching: true,
+    currentPage: undefined,
   };
 
   componentDidMount() {
@@ -76,6 +77,7 @@ class App extends React.Component {
           totalMovies: total_results,
           isInitialLoad: false,
           isSearching: true,
+          currentPage: page,
         }));
       })
       .catch(() => this.onError());
@@ -126,6 +128,7 @@ class App extends React.Component {
           totalMovies: total_results,
           isInitialLoad: false,
           isSearching: false,
+          currentPage: page,
         }));
       })
       .catch(() => this.onError());
@@ -145,6 +148,7 @@ class App extends React.Component {
       totalMovies,
       isInitialLoad,
       isSearching,
+      currentPage,
     } = this.state;
     const movieCard =
       !isLoading && !isError ? (
@@ -162,7 +166,13 @@ class App extends React.Component {
     const searching = isSearching ? <InputSearch value={inputValue} onChange={this.getInputValue} /> : null;
     const pages =
       !isLoading && !isError && totalMovies ? (
-        <PaginationList totalMovies={totalMovies} getPage={isSearching ? this.getMovieInfo : this.getRatedMovieList} />
+        <PaginationList
+          currentPage={currentPage}
+          isSearching={isSearching}
+          totalMovies={totalMovies}
+          getPageSearch={this.getMovieInfo}
+          getPageRated={this.getRatedMovieList}
+        />
       ) : null;
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
