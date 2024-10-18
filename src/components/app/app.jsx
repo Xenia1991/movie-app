@@ -8,6 +8,7 @@ import AlertError from '../alert-error';
 import Tab from '../tab';
 import InputSearch from '../input-search';
 import PaginationList from '../pagination';
+import { MovieProvider } from '../context/context';
 
 import './app.css';
 
@@ -30,6 +31,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getGuestSessionId();
+    this.getMoviesGenres();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,7 +39,6 @@ class App extends React.Component {
     if (inputValue !== prevState.inputValue) {
       this.setState({ isLoading: true });
       this.getMovieInfo();
-      this.getMoviesGenres();
     }
   }
 
@@ -176,19 +177,21 @@ class App extends React.Component {
       ) : null;
     return (
       <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
-        <section className="tab-section">
-          <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
-        </section>
-        <section className="input-search-section">{searching}</section>
-        <section className="movie-list-section">
-          <Online polling={pollingOptions}>
-            {movieCard}
-            {loaderSpin}
-            {errorAlert}
-            <section className="pagination-section">{pages}</section>
-          </Online>
-          <Offline polling={pollingOptions}>{errorAlert}</Offline>
-        </section>
+        <MovieProvider value={genresList}>
+          <section className="tab-section">
+            <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
+          </section>
+          <section className="input-search-section">{searching}</section>
+          <section className="movie-list-section">
+            <Online polling={pollingOptions}>
+              {movieCard}
+              {loaderSpin}
+              {errorAlert}
+              <section className="pagination-section">{pages}</section>
+            </Online>
+            <Offline polling={pollingOptions}>{errorAlert}</Offline>
+          </section>
+        </MovieProvider>
       </section>
     );
   }
