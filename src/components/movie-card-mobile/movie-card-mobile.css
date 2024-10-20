@@ -1,14 +1,8 @@
-@media (min-width: 980px) {
-    .ant-card.movie-card {
-        width: 450px;
-        height: 280px;
-        box-sizing: border-box;
-        padding: 0;
-    }
-    
+@media (min-width: 420px) and (max-width: 979px) {
+
     .movie-card .ant-card-body {
-        width: 100%;
-        height: 100%;
+        width: 356px;
+        height: auto;
         padding: 0;
         overflow: hidden;
     }
@@ -18,13 +12,16 @@
         height: 100%;
         padding: 0px;
     }
-    
+
+    .movie-card__main-info {
+        padding: 10px;
+    }
+
     .ant-space.movie-card__name {
         width: 80%;
     }
     
     .ant-space-item {
-        width: 100%;
         height: 100%;
     }
     
@@ -46,47 +43,46 @@
     .ant-typography.movie-card__name {
         height: 26px;
         overflow: hidden;
-        text-overflow: ellipsis;
         font-size: 18px;
     }
-    
+    /* Правило для картинки */
     .movie-card__poster {
-        width: 100%;
-        height: 100%;
+        width: 60px;
+        height: 91px;
         background-size: contain;
     }
-    
+    /* Нужное правило */
     .ant-space .movie-card__second-space {
-        padding: 10px;
+        padding: 5px 10px 0px 10px;
         box-sizing: border-box;
         display: flex;
-        flex-direction: column;
     }
-    
+    /* Исправлено */
     .movie-card__description {
         display: block;
         box-sizing: border-box;
-        padding: 10px 5px;
-        height: 120px;
+        padding: 0px 5px;
+        height: 88px;
         overflow: hidden;
     }
-    
+    /* Нужное */
     .movie-card__title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         box-sizing: border-box;
         height: 40px;
+        width: 220px;
+        padding-left: 5px;
     }
-    
+    /* Рейтинг */
     .movie-card__rate {
         width: 40px;
         height: 40px;
         box-sizing: border-box;
         border-radius: 50%;
-        padding: 3px 6px;
+        padding: 4px 7px;
         font-size: 16px;
         font-weight: 600;
+        align-self: start;
+        margin-bottom: 56px;
     }
     
     .movie-card__rate--lowest {
@@ -108,10 +104,10 @@
     .movie-card__stars {
         width: auto;
         display: flex;
-        padding: 5px 0px;
         margin: 0;
         height: 20px;
         box-sizing: border-box;
+        padding-left: 106px;
     }
     
     .ant-rate .ant-rate-star {

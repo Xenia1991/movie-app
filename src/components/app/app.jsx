@@ -1,5 +1,6 @@
 import React from 'react';
 import { Online, Offline } from 'react-detect-offline';
+import { debounce } from 'lodash';
 
 import MovieList from '../movie-list';
 import MovieApiServices from '../../services/movie-api-services';
@@ -27,6 +28,7 @@ class App extends React.Component {
     guestSessionId: null,
     isSearching: true,
     currentPage: undefined,
+    windowWidth: window.innerWidth,
   };
 
   componentDidMount() {
@@ -40,7 +42,14 @@ class App extends React.Component {
       this.setState({ isLoading: true });
       this.getMovieInfo();
     }
+    window.addEventListener('resize', this.handleResize);
   }
+
+  handleResize = debounce(() => {
+    this.setState(() => ({
+      windowWidth: window.innerWidth,
+    }));
+  }, 200);
 
   onError = () => {
     this.setState({
@@ -150,6 +159,7 @@ class App extends React.Component {
       isInitialLoad,
       isSearching,
       currentPage,
+      windowWidth,
     } = this.state;
     const movieCard =
       !isLoading && !isError ? (
@@ -160,6 +170,8 @@ class App extends React.Component {
           value={inputValue}
           isInitial={isInitialLoad}
           onRate={this.rateMovie}
+          innerWidth={windowWidth}
+          isLoading={isLoading}
         />
       ) : null;
     const loaderSpin = isLoading ? <Loader /> : null;
@@ -176,7 +188,7 @@ class App extends React.Component {
         />
       ) : null;
     return (
-      <section className={movieList.length === 0 ? 'app' : 'app-fulfilled'}>
+      <section className={movieList.length <= 10 ? 'app' : 'app-fulfilled'}>
         <MovieProvider value={genresList}>
           <section className="tab-section">
             <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
