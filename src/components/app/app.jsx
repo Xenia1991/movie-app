@@ -49,7 +49,7 @@ class App extends React.Component {
     this.setState(() => ({
       windowWidth: window.innerWidth,
     }));
-  }, 200);
+  }, 100);
 
   onError = () => {
     this.setState({

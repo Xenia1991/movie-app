@@ -10,7 +10,7 @@ import './movie-list.css';
 
 class MovieList extends React.Component {
   render() {
-    const { movieList, ratedMovies, isLoading, isInitial, onRate, innerWidth } = this.props;
+    const { movieList, ratedMovies, isInitial, onRate, innerWidth } = this.props;
     const emptyAlert = isInitial || movieList.length !== 0 ? null : <AlertEmpty />;
     const movies =
       movieList.length !== 0 && innerWidth >= 980 ? (
@@ -18,7 +18,6 @@ class MovieList extends React.Component {
           grid={{
             gutter: 16,
           }}
-          loading={isLoading}
           dataSource={movieList}
           renderItem={(item) => (
             <List.Item>
@@ -35,7 +34,6 @@ class MovieList extends React.Component {
           grid={{
             gutter: 16,
           }}
-          loading={isLoading}
           dataSource={movieList}
           renderItem={(item) => (
             <List.Item>
