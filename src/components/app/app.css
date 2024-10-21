@@ -2,7 +2,7 @@
   .app {
     margin: 0 auto;
     max-width: 420px;
-    height: 99vh;
+    height: 100vh;
     box-sizing: border-box;
     background-color: #ffffff;
     box-shadow:
@@ -23,11 +23,6 @@
       -5px 0px 85px 0 rgb(182, 181, 181);
     border: 0.1px solid rgb(253, 253, 253);
     padding: 20px 30px;
-  }
-  
-  .tab-section .ant-tabs {
-    width: fit-content;
-    margin: 0 auto;
   }
 }
 
@@ -56,10 +51,5 @@
       -5px 0px 85px 0 rgb(182, 181, 181);
     border: 0.1px solid rgb(253, 253, 253);
     padding: 20px 30px;
-  }
-  
-  .tab-section .ant-tabs {
-    width: fit-content;
-    margin: 0 auto;
   }
 }

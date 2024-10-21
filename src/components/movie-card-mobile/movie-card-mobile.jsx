@@ -12,6 +12,31 @@ const { Title, Text } = Typography;
 class MovieCardMobile extends React.Component {
   posterBase = 'https://image.tmdb.org/t/p/w500';
 
+  stylesCardMobile = {
+    body: {
+      width: '356px',
+      height: 'auto',
+      padding: 0,
+    },
+  };
+
+  stylesSpace = {
+    item: {
+      width: '100%',
+      height: '100%',
+      padding: '0px',
+      margin: '0px',
+    },
+  };
+
+  rateStyles = {
+    base: 'movie-card__rate',
+    lowest: 'movie-card__rate--lowest',
+    low: 'movie-card__rate--low',
+    middle: 'movie-card__rate--middle',
+    high: 'movie-card__rate--high',
+  };
+
   getDateFormat = () => {
     const { item } = this.props;
     const numberedDatesArr = item.release_date
@@ -48,31 +73,40 @@ class MovieCardMobile extends React.Component {
     return cuttedTitle.join('');
   };
 
+  getClasses = () => {
+    const { item } = this.props;
+    let rateClass = '';
+    if (item.vote_average < 3) {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.lowest}`;
+    } else if (item.vote_average >= 3 && item.vote_average < 5) {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.low}`;
+    } else if (item.vote_average >= 5 && item.vote_average < 7) {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.middle}`;
+    } else {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.high}`;
+    }
+    return rateClass;
+  };
+
   render() {
     const { item, onRate, ratedMovies } = this.props;
     const formatDate = this.getDateFormat();
-    const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="cyan" />);
+    const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="#D3D3D3" />);
     const myRaiting = ratedMovies[item.id] ?? 0;
     const overview = this.getCuttedDescription();
     const title = this.getCuttedTitle();
     const { vote_average, poster_path, id } = item;
-    const rateStyles = {
-      base: 'movie-card__rate',
-      lowest: 'movie-card__rate--lowest',
-      low: 'movie-card__rate--low',
-      middle: 'movie-card__rate--middle',
-      high: 'movie-card__rate--high',
-    };
+    const rateClass = this.getClasses();
     return (
-      <Card hoverable className="movie-card">
-        <Space direction="vertical" className="movie-card__first-space">
-          <Space direction="horizontal" className="movie-card__second-space">
+      <Card hoverable className="movie-card" styles={this.stylesCardMobile}>
+        <Space direction="vertical" className="movie-card__first-space" styles={this.stylesSpace}>
+          <Space direction="horizontal" className="movie-card__second-space" styles={this.stylesSpace}>
             <img
               className="movie-card__poster"
               alt="example"
               src={item.poster_path === null ? defaultPoster : `${this.posterBase}${poster_path}`}
             />
-            <Space direction="vertical">
+            <Space direction="vertical" styles={this.stylesSpace}>
               <div className="movie-card__title">
                 <Title level={4} className="movie-card__name">
                   {title}
@@ -83,19 +117,7 @@ class MovieCardMobile extends React.Component {
               </Text>
               <p className="movie-card__genre">{genresCollection}</p>
             </Space>
-            <div
-              className={
-                vote_average < 3
-                  ? `${rateStyles.base} ${rateStyles.lowest}`
-                  : vote_average >= 3 && vote_average < 5
-                    ? `${rateStyles.base} ${rateStyles.low}`
-                    : vote_average >= 5 && vote_average < 7
-                      ? `${rateStyles.base} ${rateStyles.middle}`
-                      : `${rateStyles.base} ${rateStyles.high}`
-              }
-            >
-              {vote_average.toFixed(1)}
-            </div>
+            <div className={rateClass}>{vote_average === 10 ? vote_average.toFixed(0) : vote_average.toFixed(1)}</div>
           </Space>
           <section className="movie-card__main-info">
             <Text className="movie-card__description">{overview}</Text>

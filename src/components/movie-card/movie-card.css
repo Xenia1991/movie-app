@@ -1,39 +1,16 @@
 @media (min-width: 980px) {
-    .ant-card.movie-card {
+    .movie-card {
         width: 450px;
         height: 280px;
         box-sizing: border-box;
         padding: 0;
     }
-    
-    .movie-card .ant-card-body {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        overflow: hidden;
-    }
-    
+
     .ant-space {
-        width: 100%;
-        height: 100%;
-        padding: 0px;
-    }
-    
-    .ant-space.movie-card__name {
-        width: 80%;
-    }
-    
-    .ant-space-item {
-        width: 100%;
         height: 100%;
     }
-    
-    .ant-typography.movie-card {
-        padding: 0;
-        margin: 0;
-    }
-    
-    .ant-typography.movie-card__date {
+
+    .movie-card__date {
         display: block;
         height: 20px;
         width: 100%;
@@ -43,8 +20,8 @@
         height: 45px;
     }
     
-    .ant-typography.movie-card__name {
-        height: 26px;
+    .movie-card__name {
+        height: 27px;
         overflow: hidden;
         text-overflow: ellipsis;
         font-size: 18px;
@@ -56,7 +33,7 @@
         background-size: contain;
     }
     
-    .ant-space .movie-card__second-space {
+    .movie-card__second-space {
         padding: 10px;
         box-sizing: border-box;
         display: flex;
@@ -113,7 +90,8 @@
         height: 20px;
         box-sizing: border-box;
     }
-    
+    /*Importnt применен для переоределения бмблиотечного стиля. касающегося звезд внутри, 
+    так как доступа к нему нет, designTokena нет  */
     .ant-rate .ant-rate-star {
         margin-inline-end: 3px!important;
     }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tabs } from 'antd';
 
+import './tab.css';
+
 class Tab extends React.Component {
   items = [
     {

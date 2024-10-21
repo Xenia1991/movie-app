@@ -84,6 +84,7 @@ class App extends React.Component {
         this.setState(() => ({
           movieList: results,
           isLoading: false,
+          isError: false,
           totalMovies: total_results,
           isInitialLoad: false,
           isSearching: true,
@@ -135,6 +136,7 @@ class App extends React.Component {
         this.setState(() => ({
           movieList: results,
           isLoading: false,
+          isError: false,
           totalMovies: total_results,
           isInitialLoad: false,
           isSearching: false,
@@ -199,9 +201,9 @@ class App extends React.Component {
               {movieCard}
               {loaderSpin}
               {errorAlert}
-              <section className="pagination-section">{pages}</section>
             </Online>
             <Offline polling={pollingOptions}>{errorAlert}</Offline>
+            <section className="pagination-section">{pages}</section>
           </section>
         </MovieProvider>
       </section>
