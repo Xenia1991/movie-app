@@ -75,7 +75,7 @@
         margin-bottom: 15px;
         height: 20px;
         box-sizing: border-box;
-        padding-left: 106px;
+        padding-left: 126px;
     }
     /*Important применен для переоределения бмблиотечного стиля. касающегося звезд внутри, 
     так как доступа к нему нет, designTokena нет  */
