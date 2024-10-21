@@ -26,6 +26,7 @@ class MovieCardMobile extends React.Component {
       height: '100%',
       padding: '0px',
       margin: '0px',
+      rowGap: '0px',
     },
   };
 
@@ -56,21 +57,11 @@ class MovieCardMobile extends React.Component {
   getCuttedDescription = () => {
     const { item } = this.props;
     const cuttedOverview = item.overview.split('');
-    if (item.overview.length >= 130) {
-      const newOverview = `${cuttedOverview.slice(0, 130).join('')}...`;
+    if (item.overview.length >= 170) {
+      const newOverview = `${cuttedOverview.slice(0, 170).join('')}...`;
       return newOverview;
     }
     return item.overview;
-  };
-
-  getCuttedTitle = () => {
-    const { item } = this.props;
-    const cuttedTitle = item.title.split('');
-    if (item.title.length >= 30) {
-      const newTitle = `${cuttedTitle.slice(0, 30).join('')}...`;
-      return newTitle;
-    }
-    return cuttedTitle.join('');
   };
 
   getClasses = () => {
@@ -94,7 +85,6 @@ class MovieCardMobile extends React.Component {
     const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="#D3D3D3" />);
     const myRaiting = ratedMovies[item.id] ?? 0;
     const overview = this.getCuttedDescription();
-    const title = this.getCuttedTitle();
     const { vote_average, poster_path, id } = item;
     const rateClass = this.getClasses();
     return (
@@ -109,7 +99,7 @@ class MovieCardMobile extends React.Component {
             <Space direction="vertical" styles={this.stylesSpace}>
               <div className="movie-card__title">
                 <Title level={4} className="movie-card__name">
-                  {title}
+                  {item.title}
                 </Title>
               </div>
               <Text type="secondary" className="movie-card__date">

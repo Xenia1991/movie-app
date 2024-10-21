@@ -1,37 +1,37 @@
 @media (min-width: 420px) and (max-width: 979px) {
-    .movie-card__main-info {
+    .movie-card__second-space {
         padding: 10px;
+        box-sizing: border-box;
+        display: flex;
     }
-
-    .ant-typography.movie-card__date {
-        display: block;
-        height: 20px;
-        width: 100%;
-    }
-    
-    .movie-card__genre {
-        height: 45px;
-    }
-    
-    .ant-typography.movie-card__name {
-        height: 26px;
-        overflow: hidden;
-        font-size: 18px;
-        margin: 0;
-    }
-    /* Правило для картинки */
     .movie-card__poster {
         width: 60px;
         height: 91px;
         background-size: contain;
     }
-    /* Нужное правило */
-    .ant-space .movie-card__second-space {
-        padding: 5px 10px 0px 10px;
+    .movie-card__title {
         box-sizing: border-box;
-        display: flex;
+        height: auto;
+        width: 220px;
+    }  
+    .ant-typography.movie-card__name {
+        height: 26px;
+        overflow: hidden;
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
     }
-    /* Исправлено */
+    .movie-card__date {
+        display: block;
+        height: 20px;
+        width: 100%;
+    }
+    .movie-card__genre {
+        height: 45px;
+    }
+    .movie-card__main-info {
+        padding: 0px 10px;
+    }
     .movie-card__description {
         display: block;
         box-sizing: border-box;
@@ -39,51 +39,39 @@
         height: 88px;
         overflow: hidden;
     }
-    /* Нужное */
-    .movie-card__title {
-        box-sizing: border-box;
-        height: auto;
-        width: 220px;
-        margin-top: 5px;
-    }
-    /* Рейтинг */
     .movie-card__rate {
         width: 40px;
         height: 40px;
         box-sizing: border-box;
         border-radius: 50%;
-        padding: 4px 7px;
+        padding: 3px 7px;
         font-size: 16px;
         font-weight: 600;
         align-self: start;
         margin-bottom: 56px;
     }
-    
     .movie-card__rate--lowest {
         border: 3px solid #E90000;
     }
-    
     .movie-card__rate--low {
         border: 3px solid #E97E00 ;
     }
-    
     .movie-card__rate--middle {
         border: 3px solid #E9D100;
     }
-    
     .movie-card__rate--high {
         border: 3px solid #66E900;
     }
-    
     .movie-card__stars {
         width: auto;
         display: flex;
-        margin: 0;
+        margin-bottom: 15px;
         height: 20px;
         box-sizing: border-box;
         padding-left: 106px;
     }
-    
+    /*Importnt применен для переоределения бмблиотечного стиля. касающегося звезд внутри, 
+    так как доступа к нему нет, designTokena нет  */
     .ant-rate .ant-rate-star {
         margin-inline-end: 3px!important;
     }

@@ -203,8 +203,8 @@ class App extends React.Component {
               {errorAlert}
             </Online>
             <Offline polling={pollingOptions}>{errorAlert}</Offline>
-            <section className="pagination-section">{pages}</section>
           </section>
+          <section className="pagination-section">{pages}</section>
         </MovieProvider>
       </section>
     );
