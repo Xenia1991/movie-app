@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, Space, Typography, Badge } from 'antd';
 import { format } from 'date-fns';
+import { nanoid } from 'nanoid';
 
 import Raiting from '../raiting';
 
@@ -85,7 +86,9 @@ class MovieCardMobile extends React.Component {
   render() {
     const { item, onRate, ratedMovies } = this.props;
     const formatDate = this.getDateFormat();
-    const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="#D3D3D3" />);
+    const genresCollection = this.getGenresNames().map((genre) => (
+      <Badge key={nanoid()} count={genre} color="#D3D3D3" />
+    ));
     const myRaiting = ratedMovies[item.id] ?? 0;
     const overview = this.getCuttedDescription();
     const { vote_average, poster_path, id } = item;

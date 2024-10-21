@@ -192,19 +192,21 @@ class App extends React.Component {
     return (
       <section className="app">
         <MovieProvider value={genresList}>
-          <section className="tab-section">
-            <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
-          </section>
-          <section className="input-search-section">{searching}</section>
-          <section className="movie-list-section">
-            <Online polling={pollingOptions}>
-              {movieCard}
-              {loaderSpin}
-              {errorAlert}
-              <section className="pagination-section">{pages}</section>
-            </Online>
-            <Offline polling={pollingOptions}>{errorAlert}</Offline>
-          </section>
+          <div>
+            <section className="tab-section">
+              <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
+            </section>
+            <section className="input-search-section">{searching}</section>
+            <section className="movie-list-section">
+              <Online polling={pollingOptions}>
+                {movieCard}
+                {loaderSpin}
+                {errorAlert}
+              </Online>
+              <Offline polling={pollingOptions}>{errorAlert}</Offline>
+            </section>
+          </div>
+          <section className="pagination-section">{pages}</section>
         </MovieProvider>
       </section>
     );
