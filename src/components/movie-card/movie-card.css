@@ -95,8 +95,8 @@
         height: 20px;
         box-sizing: border-box;
     }
-    /*Importnt применен для переоределения бмблиотечного стиля. касающегося звезд внутри, 
-    так как доступа к нему нет, designTokena нет  */
+  /*Important применен для переопределения библиотечного стиля, касающегося звезд внутри, 
+    так как доступа к нему нет, Design Tokena нет  */
     .ant-rate .ant-rate-star {
         margin-inline-end: 3px!important;
     }
