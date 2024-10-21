@@ -190,7 +190,7 @@ class App extends React.Component {
         />
       ) : null;
     return (
-      <section className={movieList.length <= 10 ? 'app' : 'app-fulfilled'}>
+      <section className="app">
         <MovieProvider value={genresList}>
           <section className="tab-section">
             <Tab getRated={this.getRatedMovieList} getSearch={this.getMovieInfo} />
@@ -201,10 +201,10 @@ class App extends React.Component {
               {movieCard}
               {loaderSpin}
               {errorAlert}
+              <section className="pagination-section">{pages}</section>
             </Online>
             <Offline polling={pollingOptions}>{errorAlert}</Offline>
           </section>
-          <section className="pagination-section">{pages}</section>
         </MovieProvider>
       </section>
     );

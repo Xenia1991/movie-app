@@ -2,27 +2,14 @@
   .app {
     margin: 0 auto;
     max-width: 420px;
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     background-color: #ffffff;
     box-shadow:
       5px 0px 85px 0 rgb(223, 221, 221),
       -5px 0px 85px 0 rgb(182, 181, 181);
     border: 0.1px solid rgb(253, 253, 253);
-    padding: 20px 10px;
-  }
-  
-  .app-fulfilled {
-    margin: 0 auto;
-    max-width: 420px;
-    height: auto;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    box-shadow:
-      5px 0px 85px 0 rgb(223, 221, 221),
-      -5px 0px 85px 0 rgb(182, 181, 181);
-    border: 0.1px solid rgb(253, 253, 253);
-    padding: 20px 30px;
+    padding: 20px 20px;
   }
 }
 
@@ -30,20 +17,7 @@
   .app {
     margin: 0 auto;
     max-width: 980px;
-    height: 100vh;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    box-shadow:
-      5px 0px 85px 0 rgb(223, 221, 221),
-      -5px 0px 85px 0 rgb(182, 181, 181);
-    border: 0.1px solid rgb(253, 253, 253);
-    padding: 20px 30px;
-  }
-  
-  .app-fulfilled {
-    margin: 0 auto;
-    max-width: 980px;
-    height: auto;
+    min-height: 100vh;
     box-sizing: border-box;
     background-color: #ffffff;
     box-shadow:

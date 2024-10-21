@@ -19,7 +19,7 @@ class PaginationList extends React.Component {
   render() {
     const { totalMovies, isSearching, currentPage } = this.props;
     return (
-      <div className="pagination">
+      <div className="pagination-section">
         <Pagination
           align="center"
           pageSize={20}

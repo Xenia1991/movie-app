@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, Space, Typography, Badge } from 'antd';
 import { format } from 'date-fns';
+import { nanoid } from 'nanoid';
 
 import Raiting from '../raiting';
 
@@ -38,6 +39,7 @@ class MovieCard extends React.Component {
     low: 'movie-card__rate--low',
     middle: 'movie-card__rate--middle',
     high: 'movie-card__rate--high',
+    highest: 'movie-card__rate--highest',
   };
 
   getDateFormat = () => {
@@ -75,8 +77,10 @@ class MovieCard extends React.Component {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.low}`;
     } else if (item.vote_average >= 5 && item.vote_average < 7) {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.middle}`;
-    } else {
+    } else if (item.vote_average >= 7 && item.vote_average < 10) {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.high}`;
+    } else {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.highest}`;
     }
     return rateClass;
   };
@@ -84,7 +88,9 @@ class MovieCard extends React.Component {
   render() {
     const { item, onRate, ratedMovies } = this.props;
     const formatDate = this.getDateFormat();
-    const genresCollection = this.getGenresNames().map((genre) => <Badge key={genre} count={genre} color="#D3D3D3" />);
+    const genresCollection = this.getGenresNames().map((genre) => (
+      <Badge key={nanoid()} count={genre} color="#D3D3D3" />
+    ));
     const myRaiting = ratedMovies[item.id] ?? 0;
     const overview = this.getCuttedDescription();
     const { vote_average, poster_path, id } = item;

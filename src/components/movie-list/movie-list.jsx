@@ -47,7 +47,7 @@ class MovieList extends React.Component {
         />
       );
     return (
-      <div>
+      <div className="movie-list-container">
         {movies}
         {emptyAlert}
       </div>

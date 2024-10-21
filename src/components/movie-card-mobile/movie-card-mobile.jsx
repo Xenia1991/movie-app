@@ -14,7 +14,7 @@ class MovieCardMobile extends React.Component {
 
   stylesCardMobile = {
     body: {
-      width: '356px',
+      width: '376px',
       height: 'auto',
       padding: 0,
     },
@@ -36,6 +36,7 @@ class MovieCardMobile extends React.Component {
     low: 'movie-card__rate--low',
     middle: 'movie-card__rate--middle',
     high: 'movie-card__rate--high',
+    highest: 'movie-card__rate--highest',
   };
 
   getDateFormat = () => {
@@ -73,8 +74,10 @@ class MovieCardMobile extends React.Component {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.low}`;
     } else if (item.vote_average >= 5 && item.vote_average < 7) {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.middle}`;
-    } else {
+    } else if (item.vote_average >= 7 && item.vote_average < 10) {
       rateClass = `${this.rateStyles.base} ${this.rateStyles.high}`;
+    } else {
+      rateClass = `${this.rateStyles.base} ${this.rateStyles.highest}`;
     }
     return rateClass;
   };
